@@ -1,16 +1,79 @@
-# store_app
+# Flutter Project
 
-A new Flutter project.
+This is a Flutter application.
+
+## Prerequisites
+
+Before running this project, ensure you have the following installed:
+
+- [Flutter SDK](https://flutter.dev/docs/get-started/install) (Version used to develop: 3.29.0)
+- [Dart](https://dart.dev/get-dart) (Version used to develop: 3.7.0)
+- [Android Studio](https://developer.android.com/studio) or [VS Code](https://code.visualstudio.com/)
+- Xcode (for iOS development)
+- An emulator or physical device
+- Git
+- Java 17 (Required by Flutter)
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. **Clone the repository:**
+   ```sh
+   git clone git@github.com:AngelDevXiii/StoreTest.git
+   cd StoreTest (or name of the folder with the project)
+   ```
 
-A few resources to get you started if this is your first Flutter project:
+2. **Install dependencies:**
+   ```sh
+   flutter pub get
+   ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3. **Generate necessary files:**
+   ```sh
+   flutter pub run build_runner build --delete-conflicting-outputs
+   ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. **Run the application:**
+   ```sh
+   flutter run
+   ```
+   - To run on Android: Ensure an Android emulator or device is connected.
+   - To run on iOS: Ensure Xcode is installed and an iOS simulator or device is connected.
+
+## Debugging the Application
+
+To debug your application, use:
+
+- **Start debugging in VS Code:** Press `F5` or run:
+  ```sh
+  flutter run --debug
+  ```
+- **Debug on a specific device:**
+  ```sh
+  flutter run -d <device_id>
+  ```
+  Use `flutter devices` to list available devices.
+- **Enable hot reload (during development):**
+  Press `r` in the terminal while the app is running.
+- **Enable hot restart:**
+  Press `R` in the terminal.
+
+## Troubleshooting
+
+- **Check Flutter installation:**
+  ```sh
+  flutter doctor
+  ```
+- If you face issues with dependencies, try:
+  ```sh
+  flutter clean
+  flutter pub get
+  ```
+- Ensure your device or emulator is properly connected by running:
+  ```sh
+  flutter devices
+  ```
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
