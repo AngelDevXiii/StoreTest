@@ -38,7 +38,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   }
 
   Widget productBody(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width; //
+    final screenWidth = MediaQuery.of(context).size.width;
     final product = context.watch<ProductBloc>().state.productDetail;
     final cartItems = context.watch<CartBloc>().state.products;
     final isCartLoading = context.watch<CartBloc>().state.loading;
@@ -120,8 +120,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red, // Red background for error
-                      foregroundColor: Colors.white, // White text color
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
                     ),
                     onPressed: () {
                       final authState =

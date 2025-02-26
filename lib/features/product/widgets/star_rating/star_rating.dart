@@ -11,14 +11,11 @@ class StarRating extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: List.generate(5, (index) {
         if (index < rating.floor()) {
-          return const Icon(Icons.star, color: Colors.amber); // Full Star
+          return const Icon(Icons.star, color: Colors.amber);
         } else if (index < rating && rating % 1 != 0) {
-          return const Icon(Icons.star_half, color: Colors.amber); // Half Star
+          return const Icon(Icons.star_half, color: Colors.amber);
         } else {
-          return const Icon(
-            Icons.star_border,
-            color: Colors.amber,
-          ); // Empty Star
+          return const Icon(Icons.star_border, color: Colors.amber);
         }
       }),
     );

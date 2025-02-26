@@ -25,8 +25,7 @@ class _ProductsDashboardScreenState extends State<ProductsDashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth =
-        MediaQuery.of(context).size.width; // 👈 Get screen width
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: MainAppBar(backgroundColor: Colors.white, actions: [], title: ""),

@@ -12,8 +12,7 @@ class CartsScreen extends StatefulWidget {
 class _CartsScreenState extends State<CartsScreen> {
   @override
   Widget build(BuildContext context) {
-    final screenWidth =
-        MediaQuery.of(context).size.width; // 👈 Get screen width
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
       appBar: MainAppBar(backgroundColor: Colors.white, actions: [], title: ""),

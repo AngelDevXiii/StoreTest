@@ -104,7 +104,7 @@ getRouter(AuthBloc authBloc) => GoRouter(
               name: 'details',
               path: 'details/:id',
               builder: (BuildContext context, GoRouterState state) {
-                final productId = state.pathParameters["id"]; // Get parameter
+                final productId = state.pathParameters["id"];
                 return ProductDetailsScreen(productId: productId);
               },
             ),
