@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widgetHeight = 350.0;
+    final widgetHeight = 325.0;
     final mainColor = Color.fromRGBO(242, 242, 242, 1);
 
     return Container(
@@ -107,7 +107,6 @@ class ProductCard extends StatelessWidget {
                   Row(spacing: 2, children: [StarRating(rating: stars)]),
 
                   Spacer(),
-                  cardButton(context),
                   Row(
                     spacing: 8,
                     children: [
@@ -139,6 +138,7 @@ class ProductCard extends StatelessWidget {
                         ),
                     ],
                   ),
+                  cardButton(context),
                 ],
               ),
             ),
@@ -149,22 +149,12 @@ class ProductCard extends StatelessWidget {
   }
 
   Widget cardButton(BuildContext context) {
-    if ((cartItem?.quantity ?? 0) >= product.quantity) {
-      return Align(
-        alignment: Alignment.center,
-        child: ElevatedButton(
-          onPressed: null,
-          child: const Text("No more units available"),
-        ),
-      );
-    }
-
     return Align(
       alignment: Alignment.center,
       child: ElevatedButton(
         onPressed:
             isCartLoading
-                ? null
+                ? () {}
                 : () {
                   final authState =
                       context.read<AuthBloc>().state as Authenticated;
