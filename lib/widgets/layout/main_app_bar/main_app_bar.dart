@@ -82,6 +82,10 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
       return SizedBox();
     }
 
+    final itemsInCart = products
+        .map((element) => element.quantity)
+        .reduce((value, element) => value + element);
+
     return Stack(
       children: [
         IconButton(
@@ -102,7 +106,7 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
             child: Text(
-              products.length.toString(),
+              '$itemsInCart',
               style: const TextStyle(
                 color: Colors.black54,
                 fontSize: 10,
