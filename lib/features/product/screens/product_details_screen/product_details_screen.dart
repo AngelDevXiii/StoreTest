@@ -6,8 +6,8 @@ import 'package:store_app/features/cart/bloc/cart/cart_bloc.dart';
 import 'package:store_app/features/cart/models/cart_item/cart_item_model.dart';
 import 'package:store_app/features/product/bloc/product_bloc.dart';
 import 'package:store_app/features/product/widgets/star_rating/star_rating.dart';
+import 'package:store_app/widgets/images/cache_image_container/cache_image_container.dart';
 import 'package:store_app/widgets/layout/main_app_bar/main_app_bar.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final String? productId;
@@ -61,15 +61,12 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
     return ListView(
       children: [
+        SizedBox(height: 20),
         Container(
           width: screenWidth,
           height: 400,
           color: Color.fromRGBO(242, 242, 242, 1),
-          child: FadeInImage.memoryNetwork(
-            placeholder: kTransparentImage,
-            image: product.imageUrl ?? '',
-            fit: BoxFit.scaleDown,
-          ),
+          child: CacheImageContainer(imageUrl: product.imageUrl ?? ""),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -124,15 +121,15 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () {
-                      final authState =
-                          context.read<AuthBloc>().state as Authenticated;
-
-                      context.read<CartBloc>().add(
-                        RemoveFromCart(
-                          userId: authState.user.id,
-                          productId: product.uid,
-                        ),
-                      );
+                      final authState = context.read<AuthBloc>().state;
+                      if (authState is Authenticated) {
+                        context.read<CartBloc>().add(
+                          RemoveFromCart(
+                            userId: authState.user.id,
+                            productId: product.uid,
+                          ),
+                        );
+                      }
                     },
                     child: Text("Remove from cart"),
                   ),
@@ -145,20 +142,26 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         isCartLoading
                             ? null
                             : () {
-                              final authState =
-                                  context.read<AuthBloc>().state
-                                      as Authenticated;
-
-                              context.read<CartBloc>().add(
-                                AddToCart(
-                                  userId: authState.user.id,
-                                  product: CartItem.fromProduct(
-                                    product,
-                                  ).copyWith(
-                                    quantity: (cartItem?.quantity ?? 0) + 1,
+                              final authState = context.read<AuthBloc>().state;
+                              if (authState is Authenticated) {
+                                context.read<CartBloc>().add(
+                                  RemoveFromCart(
+                                    userId: authState.user.id,
+                                    productId: product.uid,
                                   ),
-                                ),
-                              );
+                                );
+
+                                context.read<CartBloc>().add(
+                                  AddToCart(
+                                    userId: authState.user.id,
+                                    product: CartItem.fromProduct(
+                                      product,
+                                    ).copyWith(
+                                      quantity: (cartItem?.quantity ?? 0) + 1,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                     child: const Text("Add to cart"),
                   ),

@@ -9,7 +9,7 @@ final class GetCart extends CartEvent {
   GetCart({required this.userId});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userId];
 }
 
 final class AddToCart extends CartEvent {
@@ -20,6 +20,16 @@ final class AddToCart extends CartEvent {
 
   @override
   List<Object?> get props => [userId, product];
+}
+
+final class SaveCart extends CartEvent {
+  final String userId;
+  final List<CartItem> products;
+
+  SaveCart({required this.userId, required this.products});
+
+  @override
+  List<Object?> get props => [userId, products];
 }
 
 final class RemoveFromCart extends CartEvent {
@@ -38,5 +48,5 @@ final class ClearCart extends CartEvent {
   ClearCart({required this.userId});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userId];
 }

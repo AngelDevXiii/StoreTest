@@ -3,12 +3,10 @@ part of 'product_bloc.dart';
 final class ProductState extends Equatable {
   const ProductState({
     this.products = const [],
-
     this.productsLoading = false,
     this.productsHasError = false,
     this.productsErrorMessage = '',
     this.productDetail,
-
     this.productDetailLoading = false,
     this.productDetailHasError = false,
     this.productDetailErrorMessage = '',
@@ -25,7 +23,16 @@ final class ProductState extends Equatable {
   final String? productDetailErrorMessage;
 
   @override
-  List<Object?> get props => [products, productDetail];
+  List<Object?> get props => [
+    products,
+    productsLoading,
+    productsHasError,
+    productsErrorMessage,
+    productDetail,
+    productDetailLoading,
+    productDetailHasError,
+    productDetailErrorMessage,
+  ];
 
   ProductState copyWith({
     List<Product>? products,

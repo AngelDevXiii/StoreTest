@@ -1,26 +1,26 @@
+import 'package:store_app/features/product/datasources/local/product_local_datasource/product_local_datasource.dart';
+import 'package:store_app/features/product/datasources/remote/product_service/product_service.dart';
 import 'package:store_app/features/product/models/product/product_model.dart';
-import 'package:store_app/features/product/services/product_service.dart';
 
 class ProductRepository {
-  ProductRepository([ProductService? service])
-    : _service = service ?? ProductService();
+  ProductRepository({required this.service, required this.localDataSource});
 
-  final ProductService _service;
+  final ProductService service;
+  final ProductLocalDataSource localDataSource;
 
   Future<List<Product>> getProducts() async {
-    final productsData = await _service.getProducts();
-    final products = productsData.map(Product.fromJson).toList();
+    try {
+      final productsData = await service.getProducts();
+      final products = productsData.map(Product.fromJson).toList();
 
-    return products;
-  }
+      if (products.isEmpty) return localDataSource.getCachedProducts();
 
-  Future<Product?> getProduct(String productId) async {
-    final productData = await _service.getProduct(productId);
+      localDataSource.clearProductCache();
+      localDataSource.cacheProducts(products);
 
-    if (productData != null) {
-      return Product.fromJson(productData);
+      return localDataSource.getCachedProducts();
+    } catch (error) {
+      return localDataSource.getCachedProducts();
     }
-
-    return null;
   }
 }

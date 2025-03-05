@@ -7,7 +7,7 @@ class Unauthenticated extends AuthState {
   final User user = User.empty();
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
 }
 
 class Authenticated extends AuthState {

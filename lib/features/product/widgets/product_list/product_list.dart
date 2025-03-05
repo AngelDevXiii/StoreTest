@@ -31,6 +31,10 @@ class ProductList extends StatelessWidget {
       return Center(child: Text(errorMessage ?? ''));
     }
 
+    if (products.isEmpty) {
+      return Center(child: Text("Empty products"));
+    }
+
     return ListView.builder(
       itemCount: products.length,
       itemBuilder: (context, index) {
@@ -41,7 +45,7 @@ class ProductList extends StatelessWidget {
 
         return Container(
           key: ValueKey('${product.id}detail'),
-          margin: EdgeInsets.symmetric(vertical: 5),
+          margin: EdgeInsets.symmetric(vertical: 20),
           child: GestureDetector(
             onTap: () {
               context.goNamed('details', pathParameters: {"id": product.uid});

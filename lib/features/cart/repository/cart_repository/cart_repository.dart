@@ -1,29 +1,61 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:store_app/features/cart/datasources/local/cart_local_datasource/cart_local_datasource.dart';
+import 'package:store_app/features/cart/datasources/remote/cart_service/cart_service.dart';
 import 'package:store_app/features/cart/models/cart_item/cart_item_model.dart';
-import 'package:store_app/features/cart/services/cart_service.dart';
 
 class CartRepository {
-  CartRepository([CartService? service]) : _service = service ?? CartService();
+  CartRepository({required this.service, required this.localDataSource});
 
-  final CartService _service;
-
-  Stream<List<CartItem>> streamCartProducts(String userId) =>
-      _service.streamCartProducts(userId);
+  final CartService service;
+  final CartLocalDataSource localDataSource;
 
   Future<List<CartItem>> getCart(String userId) async {
-    final cartData = await _service.getCart(userId);
+    try {
+      final cartsData = await service.getCart(userId);
+      final cartLastUpdated = await localDataSource.getCartLastUpdated();
 
-    return cartData.map(CartItem.fromJson).toList();
+      if (cartsData.updatedAt != null) {
+        final cart = cartsData.cart.map(CartItem.fromJson).toList();
+
+        if (cartLastUpdated == null ||
+            cartsData.updatedAt!.isAfter(cartLastUpdated)) {
+          localDataSource.clearCartCache();
+          localDataSource.cacheCarts(cart);
+        } else {
+          final cachedCarts = await localDataSource.getCachedCarts();
+          final cachedCartsData =
+              cachedCarts.map((element) => element.toJson()).toList();
+          service.saveCart(userId, cachedCartsData);
+        }
+      }
+      return localDataSource.getCachedCarts();
+    } catch (error) {
+      return localDataSource.getCachedCarts();
+    }
   }
 
-  Future<void> addOrUpdateCartProduct(String userId, CartItem product) async {
-    return _service.addProductToCart(userId, product.toJson());
-  }
+  Future<List<CartItem>> saveCart(
+    String userId,
+    List<CartItem> products,
+  ) async {
+    await localDataSource.cacheCarts(products);
 
-  Future<void> deleteProductFromCart(String userId, String productId) async {
-    return _service.deleteProductFromCart(userId, productId);
+    final List<ConnectivityResult> connectivityResult =
+        await (Connectivity().checkConnectivity());
+
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      await service.saveCart(
+        userId,
+        products.map((product) => product.toJson()).toList(),
+      );
+    }
+
+    return localDataSource.getCachedCarts();
   }
 
   Future<void> clearCart(String userId) async {
-    return _service.clearCart(userId);
+    await localDataSource.clearCartCache();
+    await service.clearCart(userId);
   }
 }

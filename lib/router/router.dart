@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:store_app/config/dependency_injection/setup_locator.dart';
 import 'package:store_app/features/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:store_app/features/auth/bloc/login_bloc/login_bloc.dart';
 import 'package:store_app/features/auth/bloc/sign_up_bloc/sign_up_bloc.dart';
@@ -43,7 +44,9 @@ getRouter(AuthBloc authBloc) => GoRouter(
       builder: (BuildContext context, GoRouterState state) {
         return BlocProvider(
           create:
-              (context) => LoginBloc(context.read<AuthenticationRepository>()),
+              (context) => LoginBloc(
+                authenticationRepository: getIt<AuthenticationRepository>(),
+              ),
           child: LoginScreen(),
         );
       },
@@ -63,8 +66,9 @@ getRouter(AuthBloc authBloc) => GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             return BlocProvider(
               create:
-                  (context) =>
-                      SignUpBloc(context.read<AuthenticationRepository>()),
+                  (context) => SignUpBloc(
+                    authenticationRepository: getIt<AuthenticationRepository>(),
+                  ),
               child: SignUpScreen(),
             );
           },
@@ -84,10 +88,23 @@ getRouter(AuthBloc authBloc) => GoRouter(
         }
       },
       builder: (context, state, child) {
+        final authState = context.read<AuthBloc>().state;
+        String userId = authState is Authenticated ? authState.user.id : "";
+
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => CartBloc(CartRepository())),
-            BlocProvider(create: (_) => ProductBloc(ProductRepository())),
+            BlocProvider(
+              create:
+                  (_) =>
+                      CartBloc(cartRepository: getIt<CartRepository>())
+                        ..add(GetCart(userId: userId)),
+            ),
+            BlocProvider(
+              create:
+                  (_) => ProductBloc(
+                    productsRepository: getIt<ProductRepository>(),
+                  )..add(GetProducts()),
+            ),
           ],
           child: child,
         );

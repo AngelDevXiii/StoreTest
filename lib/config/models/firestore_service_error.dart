@@ -28,7 +28,9 @@ class FirestoreServiceFailure implements Exception {
           'Permission denied, user unauthorized.',
         );
       case 'unavailable':
-        return const FirestoreServiceFailure('Server unavailable.');
+        return const FirestoreServiceFailure(
+          'Server unavailable. Check internet connection.',
+        );
       case 'not-found':
         return const FirestoreServiceFailure('Resource not found.');
       default:

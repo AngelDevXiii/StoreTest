@@ -21,6 +21,10 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
         return const SignUpWithEmailAndPasswordFailure(
           'Operation is not allowed.  Please contact support.',
         );
+      case 'network-request-failed':
+        return const SignUpWithEmailAndPasswordFailure(
+          'Network error, check internet connection.',
+        );
       case 'weak-password':
         return const SignUpWithEmailAndPasswordFailure(
           'Please enter a stronger password.',
@@ -51,6 +55,10 @@ class LogInWithEmailAndPasswordFailure implements Exception {
       case 'user-not-found':
         return const LogInWithEmailAndPasswordFailure(
           'Email is not found, please create an account.',
+        );
+      case 'network-request-failed':
+        return const LogInWithEmailAndPasswordFailure(
+          'Network error, check internet connection.',
         );
       case 'wrong-password':
         return const LogInWithEmailAndPasswordFailure(

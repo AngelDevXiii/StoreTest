@@ -12,8 +12,7 @@ part of 'profile_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Profile _$ProfileFromJson(Map<String, dynamic> json) {
   return _Profile.fromJson(json);
@@ -61,35 +60,28 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
     Object? userId = null,
     Object? cartItems = null,
   }) {
-    return _then(
-      _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            userId:
-                null == userId
-                    ? _value.userId
-                    : userId // ignore: cast_nullable_to_non_nullable
-                        as String,
-            cartItems:
-                null == cartItems
-                    ? _value.cartItems
-                    : cartItems // ignore: cast_nullable_to_non_nullable
-                        as List<CartItem>,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cartItems: null == cartItems
+          ? _value.cartItems
+          : cartItems // ignore: cast_nullable_to_non_nullable
+              as List<CartItem>,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
   factory _$$ProfileImplCopyWith(
-    _$ProfileImpl value,
-    $Res Function(_$ProfileImpl) then,
-  ) = __$$ProfileImplCopyWithImpl<$Res>;
+          _$ProfileImpl value, $Res Function(_$ProfileImpl) then) =
+      __$$ProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String id, String userId, List<CartItem> cartItems});
@@ -100,9 +92,8 @@ class __$$ProfileImplCopyWithImpl<$Res>
     extends _$ProfileCopyWithImpl<$Res, _$ProfileImpl>
     implements _$$ProfileImplCopyWith<$Res> {
   __$$ProfileImplCopyWithImpl(
-    _$ProfileImpl _value,
-    $Res Function(_$ProfileImpl) _then,
-  ) : super(_value, _then);
+      _$ProfileImpl _value, $Res Function(_$ProfileImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of Profile
   /// with the given fields replaced by the non-null parameter values.
@@ -113,37 +104,32 @@ class __$$ProfileImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? cartItems = null,
   }) {
-    return _then(
-      _$ProfileImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        userId:
-            null == userId
-                ? _value.userId
-                : userId // ignore: cast_nullable_to_non_nullable
-                    as String,
-        cartItems:
-            null == cartItems
-                ? _value._cartItems
-                : cartItems // ignore: cast_nullable_to_non_nullable
-                    as List<CartItem>,
-      ),
-    );
+    return _then(_$ProfileImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cartItems: null == cartItems
+          ? _value._cartItems
+          : cartItems // ignore: cast_nullable_to_non_nullable
+              as List<CartItem>,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ProfileImpl extends _Profile {
-  const _$ProfileImpl({
-    required this.id,
-    required this.userId,
-    required final List<CartItem> cartItems,
-  }) : _cartItems = cartItems,
-       super._();
+  const _$ProfileImpl(
+      {required this.id,
+      required this.userId,
+      required final List<CartItem> cartItems})
+      : _cartItems = cartItems,
+        super._();
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileImplFromJson(json);
@@ -172,20 +158,14 @@ class _$ProfileImpl extends _Profile {
             other is _$ProfileImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userId, userId) || other.userId == userId) &&
-            const DeepCollectionEquality().equals(
-              other._cartItems,
-              _cartItems,
-            ));
+            const DeepCollectionEquality()
+                .equals(other._cartItems, _cartItems));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-    runtimeType,
-    id,
-    userId,
-    const DeepCollectionEquality().hash(_cartItems),
-  );
+      runtimeType, id, userId, const DeepCollectionEquality().hash(_cartItems));
 
   /// Create a copy of Profile
   /// with the given fields replaced by the non-null parameter values.
@@ -197,16 +177,17 @@ class _$ProfileImpl extends _Profile {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProfileImplToJson(this);
+    return _$$ProfileImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _Profile extends Profile {
-  const factory _Profile({
-    required final String id,
-    required final String userId,
-    required final List<CartItem> cartItems,
-  }) = _$ProfileImpl;
+  const factory _Profile(
+      {required final String id,
+      required final String userId,
+      required final List<CartItem> cartItems}) = _$ProfileImpl;
   const _Profile._() : super._();
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;

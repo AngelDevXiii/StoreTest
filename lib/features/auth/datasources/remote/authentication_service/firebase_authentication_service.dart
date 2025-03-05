@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meta/meta.dart';
+import 'package:store_app/features/auth/datasources/remote/authentication_service/authentication_service.dart';
+import 'package:store_app/features/auth/datasources/remote/authentication_service/authentication_service_errors.dart';
 import 'package:store_app/features/auth/models/user/user_model.dart';
-import 'package:store_app/features/auth/services/authentication_service/authentication_service.dart';
-import 'package:store_app/features/auth/services/authentication_service/authentication_service_errors.dart';
 
 class FirebaseAuthenticationService extends AuthenticationService {
   FirebaseAuthenticationService({
@@ -67,7 +68,9 @@ class FirebaseAuthenticationService extends AuthenticationService {
 
         final googleUser = await _googleSignIn.signIn();
 
-        final googleAuth = await googleUser!.authentication;
+        if (googleUser == null) return;
+
+        final googleAuth = await googleUser.authentication;
         credential = firebase_auth.GoogleAuthProvider.credential(
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
@@ -77,6 +80,12 @@ class FirebaseAuthenticationService extends AuthenticationService {
       await _firebaseAuth.signInWithCredential(credential);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithGoogleFailure.fromCode(e.code);
+    } on PlatformException catch (e) {
+      String message =
+          e.code == "network_error"
+              ? "Network error, check internet connection."
+              : "An unknown exception occurred.";
+      throw LogInWithGoogleFailure(message);
     } catch (e) {
       throw const LogInWithGoogleFailure();
     }
@@ -114,12 +123,6 @@ class FirebaseAuthenticationService extends AuthenticationService {
 
 extension on firebase_auth.User {
   User get toUser {
-    return User(
-      id: uid,
-      email: email,
-      name: displayName,
-      photoUrl: photoURL,
-      profileId: '',
-    );
+    return User(id: uid, email: email, name: displayName, photoUrl: photoURL);
   }
 }

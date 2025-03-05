@@ -2,23 +2,24 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:meta/meta.dart';
+import 'package:store_app/features/auth/datasources/remote/authentication_service/authentication_service_errors.dart';
 import 'package:store_app/features/auth/form/email_input_form.dart';
 import 'package:store_app/features/auth/form/password_validation_form.dart';
 import 'package:store_app/features/auth/repository/authentication_repository/authentication_repository.dart';
-import 'package:store_app/features/auth/services/authentication_service/authentication_service_errors.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc(this._authenticationRepository) : super(const LoginState()) {
+  LoginBloc({required this.authenticationRepository})
+    : super(const LoginState()) {
     on<LoginEmailChanged>(emailChanged);
     on<LoginPasswordChanged>(passwordChanged);
     on<LoginWithCredentialsPressed>(logInWithCredentials);
     on<LoginWithGooglePressed>(logInWithGoogle);
   }
 
-  final AuthenticationRepository _authenticationRepository;
+  final AuthenticationRepository authenticationRepository;
 
   void emailChanged(LoginEmailChanged event, Emitter<LoginState> emit) {
     final email = Email.dirty(event.email);
@@ -53,7 +54,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final password = state.password.value;
 
     try {
-      await _authenticationRepository.logInWithEmailAndPassword(
+      await authenticationRepository.logInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -76,7 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {
-      await _authenticationRepository.logInWithGoogle();
+      await authenticationRepository.logInWithGoogle();
       emit(state.copyWith(status: FormzSubmissionStatus.success));
     } on LogInWithGoogleFailure catch (e) {
       emit(

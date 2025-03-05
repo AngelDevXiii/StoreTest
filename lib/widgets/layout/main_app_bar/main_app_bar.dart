@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:store_app/features/auth/bloc/auth_bloc/auth_bloc.dart';
+import 'package:store_app/features/auth/models/user/user_model.dart';
 import 'package:store_app/features/cart/bloc/cart/cart_bloc.dart';
+import 'package:store_app/widgets/images/cache_image_container/cache_image_container.dart';
 
 class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -22,19 +24,19 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authState = context.read<AuthBloc>().state as Authenticated;
+    final authState = context.read<AuthBloc>().state;
+
+    final user = authState is Authenticated ? authState.user : User.empty();
+
     return AppBar(
       title: Text(
-        authState.user.name ?? authState.user.email ?? '',
+        user.name ?? user.email ?? '',
         style: TextStyle(fontSize: 16, color: Colors.black),
       ),
       centerTitle: true,
-      titleTextStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-        color: Colors.amber[50],
-        fontWeight: FontWeight.bold,
-      ),
-
-      backgroundColor: Colors.brown,
+      titleTextStyle: Theme.of(
+        context,
+      ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
 
       actions: [
         BlocListener<CartBloc, CartState>(
@@ -58,10 +60,12 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: cartItem(context),
         ),
 
-        if (authState.user.photoUrl != null)
-          CircleAvatar(
-            backgroundImage: NetworkImage(authState.user.photoUrl!),
-            radius: 15,
+        if (user.photoUrl != null)
+          CacheImageContainer(
+            imageUrl: user.photoUrl ?? "",
+            imageBuilder:
+                (context, imageProvider) =>
+                    CircleAvatar(backgroundImage: imageProvider, radius: 15),
           ),
         IconButton(
           icon: const Icon(Icons.logout),
@@ -70,21 +74,15 @@ class MainAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
         ),
       ],
-
-      elevation: 0,
     );
   }
 
   Widget cartItem(BuildContext context) {
     final products = context.watch<CartBloc>().state.products;
 
-    if (products.isEmpty) {
-      return SizedBox();
-    }
-
     final itemsInCart = products
         .map((element) => element.quantity)
-        .reduce((value, element) => value + element);
+        .fold(0, (value, element) => value + element);
 
     return Stack(
       children: [

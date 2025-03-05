@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:store_app/features/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:store_app/features/cart/bloc/cart/cart_bloc.dart';
 import 'package:store_app/features/cart/models/cart_item/cart_item_model.dart';
 import 'package:store_app/features/product/widgets/number_stepper/number_stepper.dart';
-import 'package:transparent_image/transparent_image.dart';
 
 class CartCard extends StatelessWidget {
   CartCard({
@@ -55,10 +55,12 @@ class CartCard extends StatelessWidget {
             width: width,
             height: widgetHeight,
             color: mainColor,
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: imageUrl,
-              fit: BoxFit.scaleDown,
+            child: CachedNetworkImage(
+              progressIndicatorBuilder:
+                  (context, url, progress) => Center(
+                    child: CircularProgressIndicator(value: progress.progress),
+                  ),
+              imageUrl: imageUrl,
             ),
           ),
           Expanded(
@@ -81,15 +83,16 @@ class CartCard extends StatelessWidget {
 
                       IconButton(
                         onPressed: () {
-                          final authState =
-                              context.read<AuthBloc>().state as Authenticated;
+                          final authState = context.read<AuthBloc>().state;
 
-                          context.read<CartBloc>().add(
-                            RemoveFromCart(
-                              userId: authState.user.id,
-                              productId: cartItem.uid,
-                            ),
-                          );
+                          if (authState is Authenticated) {
+                            context.read<CartBloc>().add(
+                              RemoveFromCart(
+                                userId: authState.user.id,
+                                productId: cartItem.uid,
+                              ),
+                            );
+                          }
                         },
                         color: Colors.red,
                         icon: Icon(Icons.delete),
@@ -114,15 +117,15 @@ class CartCard extends StatelessWidget {
                   NumberStepper(
                     quantity: quantity,
                     onPressed: (pQuantity) {
-                      final authState =
-                          context.read<AuthBloc>().state as Authenticated;
-
-                      context.read<CartBloc>().add(
-                        AddToCart(
-                          userId: authState.user.id,
-                          product: cartItem.copyWith(quantity: pQuantity),
-                        ),
-                      );
+                      final authState = context.read<AuthBloc>().state;
+                      if (authState is Authenticated) {
+                        context.read<CartBloc>().add(
+                          AddToCart(
+                            userId: authState.user.id,
+                            product: cartItem.copyWith(quantity: pQuantity),
+                          ),
+                        );
+                      }
                     },
                   ),
                 ],

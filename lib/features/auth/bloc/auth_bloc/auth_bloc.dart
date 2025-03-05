@@ -9,21 +9,20 @@ part "auth_event.dart";
 part "auth_state.dart";
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc({required AuthenticationRepository authenticationRepository})
-    : _authenticationRepository = authenticationRepository,
-      super(Unauthenticated()) {
+  AuthBloc({required this.authenticationRepository})
+    : super(Unauthenticated()) {
     on<AuthUserSubscriptionRequested>(_onUserSubscriptionRequested);
     on<AuthLogoutPressed>(_onLogoutPressed);
   }
 
-  final AuthenticationRepository _authenticationRepository;
+  final AuthenticationRepository authenticationRepository;
 
   Future<void> _onUserSubscriptionRequested(
     AuthUserSubscriptionRequested event,
     Emitter<AuthState> emit,
   ) {
     return emit.onEach(
-      _authenticationRepository.user,
+      authenticationRepository.user,
       onData: (user) {
         if (user.id == '') {
           emit(Unauthenticated());
@@ -31,12 +30,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(Authenticated(user: user));
         }
       },
-      onError: addError,
+      onError: (error, stacktrace) {
+        return addError(error, stacktrace);
+      },
     );
   }
 
   void _onLogoutPressed(AuthLogoutPressed event, Emitter<AuthState> emit) {
-    _authenticationRepository.logOut();
+    authenticationRepository.logOut();
     emit(Unauthenticated());
   }
 }

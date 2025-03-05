@@ -10,10 +10,9 @@ _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
     _$ProfileImpl(
       id: json['id'] as String,
       userId: json['userId'] as String,
-      cartItems:
-          (json['cartItems'] as List<dynamic>)
-              .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      cartItems: (json['cartItems'] as List<dynamic>)
+          .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>

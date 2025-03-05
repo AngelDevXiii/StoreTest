@@ -5,7 +5,7 @@ import 'package:store_app/features/cart/bloc/cart/cart_bloc.dart';
 import 'package:store_app/features/cart/models/cart_item/cart_item_model.dart';
 import 'package:store_app/features/product/models/product/product_model.dart';
 import 'package:store_app/features/product/widgets/star_rating/star_rating.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:store_app/widgets/images/cache_image_container/cache_image_container.dart';
 
 class ProductCard extends StatelessWidget {
   ProductCard({
@@ -45,7 +45,7 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final widgetHeight = 325.0;
+    final widgetHeight = 350.0;
     final mainColor = Color.fromRGBO(242, 242, 242, 1);
 
     return Container(
@@ -66,11 +66,7 @@ class ProductCard extends StatelessWidget {
             width: width,
             height: widgetHeight,
             color: mainColor,
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: imageUrl,
-              fit: BoxFit.scaleDown,
-            ),
+            child: CacheImageContainer(imageUrl: imageUrl),
           ),
           Expanded(
             child: Padding(
@@ -115,15 +111,15 @@ class ProductCard extends StatelessWidget {
                       if (cartItem != null)
                         TextButton(
                           onPressed: () {
-                            final authState =
-                                context.read<AuthBloc>().state as Authenticated;
-
-                            context.read<CartBloc>().add(
-                              RemoveFromCart(
-                                userId: authState.user.id,
-                                productId: product.uid,
-                              ),
-                            );
+                            final authState = context.read<AuthBloc>().state;
+                            if (authState is Authenticated) {
+                              context.read<CartBloc>().add(
+                                RemoveFromCart(
+                                  userId: authState.user.id,
+                                  productId: product.uid,
+                                ),
+                              );
+                            }
                           },
                           style: TextButton.styleFrom(
                             padding: EdgeInsets.zero,
@@ -156,17 +152,17 @@ class ProductCard extends StatelessWidget {
             isCartLoading
                 ? () {}
                 : () {
-                  final authState =
-                      context.read<AuthBloc>().state as Authenticated;
-
-                  context.read<CartBloc>().add(
-                    AddToCart(
-                      userId: authState.user.id,
-                      product: CartItem.fromProduct(
-                        product,
-                      ).copyWith(quantity: (cartItem?.quantity ?? 0) + 1),
-                    ),
-                  );
+                  final authState = context.read<AuthBloc>().state;
+                  if (authState is Authenticated) {
+                    context.read<CartBloc>().add(
+                      AddToCart(
+                        userId: authState.user.id,
+                        product: CartItem.fromProduct(
+                          product,
+                        ).copyWith(quantity: (cartItem?.quantity ?? 0) + 1),
+                      ),
+                    );
+                  }
                 },
         child: const Text("Add to cart"),
       ),

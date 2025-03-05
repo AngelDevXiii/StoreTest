@@ -118,18 +118,13 @@ class _LoginButton extends StatelessWidget {
 class _GoogleLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ElevatedButton.icon(
       key: const Key('loginForm_googleLogin_raisedButton'),
       label: const Text(
         'SIGN IN WITH GOOGLE',
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.black),
       ),
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        backgroundColor: theme.colorScheme.secondary,
-      ),
-      icon: const Icon(FontAwesomeIcons.google, color: Colors.white),
+      icon: const Icon(FontAwesomeIcons.google, color: Colors.red),
       onPressed: () => context.read<LoginBloc>().add(LoginWithGooglePressed()),
     );
   }
@@ -143,7 +138,13 @@ class _SignUpButton extends StatelessWidget {
       key: const Key('loginForm_createAccount_flatButton'),
 
       onPressed: () => {context.go('/sign-up')},
-      child: Text('Create User', style: TextStyle(color: theme.primaryColor)),
+      child: Text(
+        'Create User',
+        style: TextStyle(
+          color: theme.primaryColor,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
   }
 }

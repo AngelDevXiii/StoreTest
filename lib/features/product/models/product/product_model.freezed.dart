@@ -12,8 +12,7 @@ part of 'product_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models',
-);
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Product _$ProductFromJson(Map<String, dynamic> json) {
   return _Product.fromJson(json);
@@ -47,19 +46,18 @@ abstract class $ProductCopyWith<$Res> {
   factory $ProductCopyWith(Product value, $Res Function(Product) then) =
       _$ProductCopyWithImpl<$Res, Product>;
   @useResult
-  $Res call({
-    String uid,
-    String id,
-    String name,
-    double price,
-    String? description,
-    String? imageUrl,
-    double discount,
-    int quantity,
-    double stars,
-    int reviews,
-    bool isAvailable,
-  });
+  $Res call(
+      {String uid,
+      String id,
+      String name,
+      double price,
+      String? description,
+      String? imageUrl,
+      double discount,
+      int quantity,
+      double stars,
+      int reviews,
+      bool isAvailable});
 }
 
 /// @nodoc
@@ -89,90 +87,74 @@ class _$ProductCopyWithImpl<$Res, $Val extends Product>
     Object? reviews = null,
     Object? isAvailable = null,
   }) {
-    return _then(
-      _value.copyWith(
-            uid:
-                null == uid
-                    ? _value.uid
-                    : uid // ignore: cast_nullable_to_non_nullable
-                        as String,
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            name:
-                null == name
-                    ? _value.name
-                    : name // ignore: cast_nullable_to_non_nullable
-                        as String,
-            price:
-                null == price
-                    ? _value.price
-                    : price // ignore: cast_nullable_to_non_nullable
-                        as double,
-            description:
-                freezed == description
-                    ? _value.description
-                    : description // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            imageUrl:
-                freezed == imageUrl
-                    ? _value.imageUrl
-                    : imageUrl // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            discount:
-                null == discount
-                    ? _value.discount
-                    : discount // ignore: cast_nullable_to_non_nullable
-                        as double,
-            quantity:
-                null == quantity
-                    ? _value.quantity
-                    : quantity // ignore: cast_nullable_to_non_nullable
-                        as int,
-            stars:
-                null == stars
-                    ? _value.stars
-                    : stars // ignore: cast_nullable_to_non_nullable
-                        as double,
-            reviews:
-                null == reviews
-                    ? _value.reviews
-                    : reviews // ignore: cast_nullable_to_non_nullable
-                        as int,
-            isAvailable:
-                null == isAvailable
-                    ? _value.isAvailable
-                    : isAvailable // ignore: cast_nullable_to_non_nullable
-                        as bool,
-          )
-          as $Val,
-    );
+    return _then(_value.copyWith(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      stars: null == stars
+          ? _value.stars
+          : stars // ignore: cast_nullable_to_non_nullable
+              as double,
+      reviews: null == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as int,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ) as $Val);
   }
 }
 
 /// @nodoc
 abstract class _$$ProductImplCopyWith<$Res> implements $ProductCopyWith<$Res> {
   factory _$$ProductImplCopyWith(
-    _$ProductImpl value,
-    $Res Function(_$ProductImpl) then,
-  ) = __$$ProductImplCopyWithImpl<$Res>;
+          _$ProductImpl value, $Res Function(_$ProductImpl) then) =
+      __$$ProductImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    String uid,
-    String id,
-    String name,
-    double price,
-    String? description,
-    String? imageUrl,
-    double discount,
-    int quantity,
-    double stars,
-    int reviews,
-    bool isAvailable,
-  });
+  $Res call(
+      {String uid,
+      String id,
+      String name,
+      double price,
+      String? description,
+      String? imageUrl,
+      double discount,
+      int quantity,
+      double stars,
+      int reviews,
+      bool isAvailable});
 }
 
 /// @nodoc
@@ -180,9 +162,8 @@ class __$$ProductImplCopyWithImpl<$Res>
     extends _$ProductCopyWithImpl<$Res, _$ProductImpl>
     implements _$$ProductImplCopyWith<$Res> {
   __$$ProductImplCopyWithImpl(
-    _$ProductImpl _value,
-    $Res Function(_$ProductImpl) _then,
-  ) : super(_value, _then);
+      _$ProductImpl _value, $Res Function(_$ProductImpl) _then)
+      : super(_value, _then);
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
@@ -201,84 +182,71 @@ class __$$ProductImplCopyWithImpl<$Res>
     Object? reviews = null,
     Object? isAvailable = null,
   }) {
-    return _then(
-      _$ProductImpl(
-        uid:
-            null == uid
-                ? _value.uid
-                : uid // ignore: cast_nullable_to_non_nullable
-                    as String,
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        name:
-            null == name
-                ? _value.name
-                : name // ignore: cast_nullable_to_non_nullable
-                    as String,
-        price:
-            null == price
-                ? _value.price
-                : price // ignore: cast_nullable_to_non_nullable
-                    as double,
-        description:
-            freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        imageUrl:
-            freezed == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        discount:
-            null == discount
-                ? _value.discount
-                : discount // ignore: cast_nullable_to_non_nullable
-                    as double,
-        quantity:
-            null == quantity
-                ? _value.quantity
-                : quantity // ignore: cast_nullable_to_non_nullable
-                    as int,
-        stars:
-            null == stars
-                ? _value.stars
-                : stars // ignore: cast_nullable_to_non_nullable
-                    as double,
-        reviews:
-            null == reviews
-                ? _value.reviews
-                : reviews // ignore: cast_nullable_to_non_nullable
-                    as int,
-        isAvailable:
-            null == isAvailable
-                ? _value.isAvailable
-                : isAvailable // ignore: cast_nullable_to_non_nullable
-                    as bool,
-      ),
-    );
+    return _then(_$ProductImpl(
+      uid: null == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+      imageUrl: freezed == imageUrl
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      discount: null == discount
+          ? _value.discount
+          : discount // ignore: cast_nullable_to_non_nullable
+              as double,
+      quantity: null == quantity
+          ? _value.quantity
+          : quantity // ignore: cast_nullable_to_non_nullable
+              as int,
+      stars: null == stars
+          ? _value.stars
+          : stars // ignore: cast_nullable_to_non_nullable
+              as double,
+      reviews: null == reviews
+          ? _value.reviews
+          : reviews // ignore: cast_nullable_to_non_nullable
+              as int,
+      isAvailable: null == isAvailable
+          ? _value.isAvailable
+          : isAvailable // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$ProductImpl extends _Product {
-  const _$ProductImpl({
-    required this.uid,
-    required this.id,
-    required this.name,
-    required this.price,
-    this.description,
-    this.imageUrl,
-    this.discount = 0,
-    this.quantity = 0,
-    this.stars = 0,
-    this.reviews = 0,
-    this.isAvailable = true,
-  }) : super._();
+  const _$ProductImpl(
+      {required this.uid,
+      required this.id,
+      required this.name,
+      required this.price,
+      this.description,
+      this.imageUrl,
+      this.discount = 0,
+      this.quantity = 0,
+      this.stars = 0,
+      this.reviews = 0,
+      this.isAvailable = true})
+      : super._();
 
   factory _$ProductImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProductImplFromJson(json);
@@ -341,20 +309,8 @@ class _$ProductImpl extends _Product {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-    runtimeType,
-    uid,
-    id,
-    name,
-    price,
-    description,
-    imageUrl,
-    discount,
-    quantity,
-    stars,
-    reviews,
-    isAvailable,
-  );
+  int get hashCode => Object.hash(runtimeType, uid, id, name, price,
+      description, imageUrl, discount, quantity, stars, reviews, isAvailable);
 
   /// Create a copy of Product
   /// with the given fields replaced by the non-null parameter values.
@@ -366,24 +322,25 @@ class _$ProductImpl extends _Product {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProductImplToJson(this);
+    return _$$ProductImplToJson(
+      this,
+    );
   }
 }
 
 abstract class _Product extends Product {
-  const factory _Product({
-    required final String uid,
-    required final String id,
-    required final String name,
-    required final double price,
-    final String? description,
-    final String? imageUrl,
-    final double discount,
-    final int quantity,
-    final double stars,
-    final int reviews,
-    final bool isAvailable,
-  }) = _$ProductImpl;
+  const factory _Product(
+      {required final String uid,
+      required final String id,
+      required final String name,
+      required final double price,
+      final String? description,
+      final String? imageUrl,
+      final double discount,
+      final int quantity,
+      final double stars,
+      final int reviews,
+      final bool isAvailable}) = _$ProductImpl;
   const _Product._() : super._();
 
   factory _Product.fromJson(Map<String, dynamic> json) = _$ProductImpl.fromJson;
